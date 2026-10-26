@@ -1,0 +1,17 @@
+PASS | ADDI | 
+PASS | ADD | 
+PASS | SUB | 
+PASS | AND | 
+PASS | OR | 
+PASS | SLT | 
+PASS | SW | 
+PASS | LW | 
+PASS | BEQ | Instruction after taken branch skipped
+PASS | J | 
+PASS | Byte-addressed PC | 
+PASS | Branch target | 
+PASS | Register zero | 
+PASS | Control table coverage | 10 required instruction types
+
+Passed: 14
+Failed: 0

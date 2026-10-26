@@ -1,0 +1,12 @@
+pc,instruction,details,next_pc
+0,ADDI 8 0 10,R8 = R0 + 10,4
+4,ADDI 9 0 20,R9 = R0 + 20,8
+8,ADD 10 8 9,R10 = R8 ADD R9,12
+12,SUB 11 9 8,R11 = R9 SUB R8,16
+16,AND 12 8 9,R12 = R8 AND R9,20
+20,OR 13 8 9,R13 = R8 OR R9,24
+24,SLT 14 8 9,R14 = signed(R8) < signed(R9),28
+28,SW 10 0 0,MEM[0] = R10,32
+32,LW 15 0 0,R15 = MEM[0],36
+36,BEQ 10 15 1,"BEQ R10, R15, offset=1",44
+44,J 12,J target26=12,48

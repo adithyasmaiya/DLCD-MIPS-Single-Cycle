@@ -1,0 +1,9 @@
+Cycle,PC,Instruction,NextPC,RegDst,ALUSrc,MemToReg,RegWrite,MemRead,MemWrite,Branch,Jump,ALUOp,ExecutionDetails
+1,0,ADDI 8 0 10,4,0,1,0,1,0,0,0,0,ADD,R8 = R0 + 10
+2,4,ADDI 9 0 20,8,0,1,0,1,0,0,0,0,ADD,R9 = R0 + 20
+3,8,ADD 10 8 9,12,1,0,0,1,0,0,0,0,R_TYPE,R10 = R8 ADD R9
+4,12,SUB 11 9 8,16,1,0,0,1,0,0,0,0,R_TYPE,R11 = R9 SUB R8
+5,16,SW 10 0 0,20,X,1,X,0,0,1,0,0,ADD,MEM[0] = R10
+6,20,LW 12 0 0,24,0,1,1,1,1,0,0,0,ADD,R12 = MEM[0]
+7,24,BEQ 10 12 1,32,X,0,X,0,0,0,1,0,SUB,"BEQ R10, R12, offset=1"
+8,32,J 9,36,X,X,X,0,0,0,0,1,NONE,J target26=9

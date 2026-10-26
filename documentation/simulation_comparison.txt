@@ -1,0 +1,35 @@
+
+DLCD MINI PROJECT - SIMULATION COMPARISON
+=========================================
+
+PYTHON SINGLE-CYCLE ARCHITECTURAL MODEL
+-----------------------------------------
+Executed instructions : 8
+Assigned cycles       : 8
+Assumed CPI           : 1.00
+Processor             : Educational MIPS datapath
+
+GEM5 REFERENCE SIMULATION
+-----------------------------------------
+Executed instructions : 37
+Simulated ticks       : 38000
+Configured clock      : 1 GHz
+Ticks per clock cycle : 1000
+Estimated CPU cycles  : 38.00
+Calculated CPI        : 1.027
+Processor             : MipsAtomicSimpleCPU
+
+INTERPRETATION
+-----------------------------------------
+The Python model assumes one architectural cycle
+per executed instruction.
+
+gem5 uses its existing atomic CPU model.
+The gem5 CPI is calculated from simulated ticks
+and the configured clock frequency.
+
+These measurements come from different programs.
+They are not a direct performance comparison.
+
+Neither result establishes gate-level timing
+or a custom single-cycle CPU inside gem5.

@@ -1,0 +1,56 @@
+
+flowchart TD
+    PC["Program Counter (PC)"]
+    IM["Instruction Memory"]
+    ADD4["PC + 4 Adder"]
+    CU["Instruction Decoder and Control Unit"]
+    RF["Register File (32 x 32-bit)"]
+    SE["Sign Extend Immediate"]
+    MUXA["ALUSrc Multiplexer"]
+    ALU["ALU"]
+    DM["Data Memory"]
+    MUXW["MemToReg Write-back Multiplexer"]
+    DST["RegDst Destination Register Multiplexer"]
+    BRADD["Branch Target Adder"]
+    CMP["Branch Decision (Zero)"]
+    PCMUX["Next-PC Multiplexer"]
+    JMP["Jump Target Generator"]
+
+    PC -->|Instruction address| IM
+    PC --> ADD4
+    IM -->|Opcode and fields| CU
+    IM -->|rs and rt| RF
+    IM -->|Immediate| SE
+    IM -->|rd and rt| DST
+    CU -->|Register controls| RF
+    CU -->|ALU control| ALU
+    CU -->|RegDst| DST
+    CU -->|ALUSrc| MUXA
+    CU -->|MemRead and MemWrite| DM
+    CU -->|MemToReg| MUXW
+    CU -->|Branch and Jump| PCMUX
+
+    RF -->|Read data 1| ALU
+    RF -->|Read data 2| MUXA
+    SE --> MUXA
+    MUXA -->|Operand B| ALU
+
+    ALU -->|ALU result / address| DM
+    ALU -->|Zero flag| CMP
+    RF -->|Read data 2| DM
+    DM -->|Read data| MUXW
+    ALU -->|ALU result| MUXW
+
+    DST -->|Destination register| RF
+    MUXW -->|Write data| RF
+
+    ADD4 --> BRADD
+    SE -->|Shift left 2| BRADD
+    BRADD --> CMP
+    CMP --> PCMUX
+    ADD4 --> PCMUX
+
+    IM -->|Instruction target bits| JMP
+    ADD4 -->|Upper address bits| JMP
+    JMP --> PCMUX
+    PCMUX -->|Selected next PC| PC

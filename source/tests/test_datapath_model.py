@@ -47,3 +47,25 @@ if passed != len(checks):
     raise SystemExit(1)
 
 print("DATAPATH VERIFICATION PASSED")
+
+# Test ALU Zero flag for an ADD instruction
+zero_cpu = SingleCycleDatapath()
+
+zero_cpu.load_program([
+    ("ADDI", 8, 0, 10),
+    ("ADDI", 9, 0, -10),
+    ("ADD", 10, 8, 9),
+])
+
+_, _, zero_trace = zero_cpu.run()
+
+zero_test = (
+    zero_cpu.reg[10] == 0
+    and zero_trace[2]["alu_result"] == 0
+    and zero_trace[2]["zero"] is True
+)
+
+print(f"[{'PASS' if zero_test else 'FAIL'}] ALU Zero flag for ADD")
+
+if not zero_test:
+    raise SystemExit(1)

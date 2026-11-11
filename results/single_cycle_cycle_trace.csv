@@ -1,9 +1,9 @@
-Cycle,PC,Instruction,NextPC,RegDst,ALUSrc,MemToReg,RegWrite,MemRead,MemWrite,Branch,Jump,ALUOp,ExecutionDetails
-1,0,ADDI 8 0 10,4,0,1,0,1,0,0,0,0,ADD,R8 = R0 + 10
-2,4,ADDI 9 0 20,8,0,1,0,1,0,0,0,0,ADD,R9 = R0 + 20
-3,8,ADD 10 8 9,12,1,0,0,1,0,0,0,0,R_TYPE,R10 = R8 ADD R9
-4,12,SUB 11 9 8,16,1,0,0,1,0,0,0,0,R_TYPE,R11 = R9 SUB R8
-5,16,SW 10 0 0,20,X,1,X,0,0,1,0,0,ADD,MEM[0] = R10
-6,20,LW 12 0 0,24,0,1,1,1,1,0,0,0,ADD,R12 = MEM[0]
-7,24,BEQ 10 12 1,32,X,0,X,0,0,0,1,0,SUB,"BEQ R10, R12, offset=1"
-8,32,J 9,36,X,X,X,0,0,0,0,1,NONE,J target26=9
+Cycle,PC,PCPlus4,Instruction,NextPC,PCSource,RegDst,ALUSrc,MemToReg,RegWrite,MemRead,MemWrite,Branch,Jump,ALUControl,ReadRegister1,ReadRegister2,ReadData1,ReadData2,DestinationRegister,RegisterWriteEnable,RegisterWriteData,WritebackSource,SignExtendedImmediate,ALUInputB,ALUResult,Zero,ShiftedBranchOffset,BranchTarget,BranchTaken,JumpTarget26,ShiftedJumpTarget,PCUpper4,JumpAddress,MemoryAddress,MemoryReadData,RegDstInput0,RegDstInput1,RegDstSelected,ALUSrcInput0,ALUSrcInput1,ALUSrcSelected,MemToRegInput0,MemToRegInput1,MemToRegSelected,PCMuxInput0,PCMuxInput1,PCMuxInput2,PCMuxSelected,ExecutionDetails
+1,0,4,ADDI 8 0 10,4,SEQUENTIAL,0,1,0,1,0,0,0,0,ADD,0,8,0,0,8,True,10,ALU,10,10,10,False,,,False,,,,,,,8,0,RT,0,10,IMMEDIATE,10,,ALU,4,,,SEQUENTIAL,ALU=10; PCSource=SEQUENTIAL; Writeback=ALU; ALUSrc=IMMEDIATE; RegDst=RT; MemToReg=ALU
+2,4,8,ADDI 9 0 20,8,SEQUENTIAL,0,1,0,1,0,0,0,0,ADD,0,9,0,0,9,True,20,ALU,20,20,20,False,,,False,,,,,,,9,0,RT,0,20,IMMEDIATE,20,,ALU,8,,,SEQUENTIAL,ALU=20; PCSource=SEQUENTIAL; Writeback=ALU; ALUSrc=IMMEDIATE; RegDst=RT; MemToReg=ALU
+3,8,12,ADD 10 8 9,12,SEQUENTIAL,1,0,0,1,0,0,0,0,ADD,8,9,10,20,10,True,30,ALU,,20,30,False,,,False,,,,,,,9,10,RD,20,,REGISTER,30,,ALU,12,,,SEQUENTIAL,ALU=30; PCSource=SEQUENTIAL; Writeback=ALU; ALUSrc=REGISTER; RegDst=RD; MemToReg=ALU
+4,12,16,SUB 11 9 8,16,SEQUENTIAL,1,0,0,1,0,0,0,0,SUB,9,8,20,10,11,True,10,ALU,,10,10,False,,,False,,,,,,,8,11,RD,10,,REGISTER,10,,ALU,16,,,SEQUENTIAL,ALU=10; PCSource=SEQUENTIAL; Writeback=ALU; ALUSrc=REGISTER; RegDst=RD; MemToReg=ALU
+5,16,20,SW 10 0 0,20,SEQUENTIAL,X,1,X,0,0,1,0,0,ADD,0,10,0,30,,False,,,0,0,0,True,,,False,,,,,0,,10,0,,30,0,IMMEDIATE,0,,,20,,,SEQUENTIAL,ALU=0; PCSource=SEQUENTIAL; Writeback=None; ALUSrc=IMMEDIATE; RegDst=None; MemToReg=None
+6,20,24,LW 12 0 0,24,SEQUENTIAL,0,1,1,1,1,0,0,0,ADD,0,12,0,0,12,True,30,DATA_MEMORY,0,0,0,True,,,False,,,,,0,30,12,0,RT,0,0,IMMEDIATE,0,30,MEMORY,24,,,SEQUENTIAL,ALU=0; PCSource=SEQUENTIAL; Writeback=DATA_MEMORY; ALUSrc=IMMEDIATE; RegDst=RT; MemToReg=MEMORY
+7,24,28,BEQ 10 12 1,32,BRANCH,X,0,X,0,0,0,1,0,SUB,10,12,30,30,,False,,,1,30,0,True,4,32,True,,,,,,,12,0,,30,1,REGISTER,0,,,28,32,,BRANCH,ALU=0; PCSource=BRANCH; Writeback=None; ALUSrc=REGISTER; RegDst=None; MemToReg=None
+8,32,36,J 9,36,JUMP,X,X,X,0,0,0,0,1,NONE,,,0,0,,False,,,,0,0,True,,,False,9,36,0,36,,,0,0,,0,,,0,,,36,,36,JUMP,ALU=0; PCSource=JUMP; Writeback=None; ALUSrc=None; RegDst=None; MemToReg=None
